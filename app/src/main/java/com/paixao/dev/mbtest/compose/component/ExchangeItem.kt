@@ -1,6 +1,7 @@
 package com.paixao.dev.mbtest.compose.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,9 +30,14 @@ fun ExchangeItem(
     image: Painter? = null,
     value: String,
     time: String,
-    fav: Boolean
+    fav: Boolean,
+    click: () -> Unit = {}
 ) {
-    Card {
+    Card(
+        modifier = Modifier.clickable {
+            click.invoke()
+        }
+    ) {
         Column(
             modifier = Modifier.padding(10.dp, 10.dp, 10.dp, 5.dp),
             verticalArrangement = Arrangement.Center

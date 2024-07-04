@@ -1,5 +1,6 @@
 package com.paixao.dev.mbtest.compose.component
 
+import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -55,7 +56,9 @@ private fun TitleValuationCompose(
         if (shiny) {
             val shinyColors = listOf(
                 Color.LightGray.copy(alpha = 0.6f),
-                Color.LightGray.copy(alpha = 0.1f),
+                Color.LightGray.copy(alpha = 0.0f),
+                Color.LightGray.copy(alpha = 0.6f),
+                Color.LightGray.copy(alpha = 0.0f),
                 Color.LightGray.copy(alpha = 0.6f),
             )
 
@@ -66,7 +69,7 @@ private fun TitleValuationCompose(
                 animationSpec = infiniteRepeatable(
                     animation = tween(
                         durationMillis = 1000,
-                        easing = FastOutSlowInEasing
+                        easing = FastOutLinearInEasing
                     ),
                     repeatMode = RepeatMode.Reverse
                 ), label = "FloatAnimation"
