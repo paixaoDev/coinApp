@@ -1,11 +1,17 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+//    id("kotlin-kapt")
+//    id("com.google.dagger.hilt.android")
 }
 
 android {
     namespace = "com.paixao.dev.mbtest"
     compileSdk = 34
+
+    buildFeatures {
+        buildConfig = true
+    }
 
     defaultConfig {
         applicationId = "com.paixao.dev.mbtest"
@@ -27,6 +33,18 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "BASE_URL", "\"https://rest.coinapi.io/v1\"")
+            buildConfigField("String", "API_KEY", "\"55D522F7-11A3-4243-937B-7644C973364D\"")
+        }
+
+        debug {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            buildConfigField("String", "BASE_URL", "\"http://rest.coinapi.io/v1\"")
+            buildConfigField("String", "API_KEY", "\"55D522F7-11A3-4243-937B-7644C973364D\"")
         }
     }
     compileOptions {
@@ -61,6 +79,8 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.squareup.retrofit)
     implementation(libs.squareup.gson)
+    implementation(libs.hilt)
+    implementation(libs.androidx.lifecycle.viewmodel)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -68,4 +88,10 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+//    kapt(libs.hilt.android.compiler)
 }
+
+// Allow references to generated code
+//kapt {
+//    correctErrorTypes = true
+//}
