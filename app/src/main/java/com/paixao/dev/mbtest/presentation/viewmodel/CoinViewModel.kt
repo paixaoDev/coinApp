@@ -10,12 +10,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CoinViewModel @Inject constructor(
-    val fetchExchangeListUseCase: FetchExchangeListUseCase
+    //val fetchExchangeListUseCase: FetchExchangeListUseCase
 ) : ViewModel() {
 
     fun getExchangeList() {
-        fetchExchangeListUseCase()
-            .onEach {
-            }.launchIn(viewModelScope)
+//        fetchExchangeListUseCase()
+//            .onEach {
+//            }.launchIn(viewModelScope)
     }
 }
