@@ -20,7 +20,7 @@ import com.paixao.dev.mbtest.presentation.viewmodel.CoinViewModel
 
 @Composable
 fun HomeScreen(
-    viewModel: CoinViewModel = viewModel(),
+    viewModel: CoinViewModel,
     onExchangeClick: (exchange: String) -> Unit = {}
 ) {
     Surface(

@@ -23,7 +23,7 @@ import com.paixao.dev.mbtest.ui.theme.MBTestTheme
 
 @Composable
 fun DetailsScreen(
-    viewModel: CoinViewModel = viewModel(),
+    viewModel: CoinViewModel,
     exchangeID: String = ""
 ) {
     Surface(
