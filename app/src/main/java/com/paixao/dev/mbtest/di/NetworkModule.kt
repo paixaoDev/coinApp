@@ -18,16 +18,16 @@ fun provideHttpClient(): OkHttpClient {
         .Builder()
         .readTimeout(60, TimeUnit.SECONDS)
         .connectTimeout(60, TimeUnit.SECONDS)
-//        .addInterceptor { chain ->
-//            chain.proceed(
-//                chain.request()
-//                    .newBuilder()
-//                    .addHeader("X-CoinAPI-Key", BuildConfig.API_KEY)
-//                    .addHeader("accept-encoding", "gzip, deflate")
-//                    .addHeader("content-type", "application/json; charset=utf-8")
-//                    .addHeader("accept", "application/json")
-//                    .build()
-//            ) }
+        .addInterceptor { chain ->
+            chain.proceed(
+                chain.request()
+                    .newBuilder()
+                    .addHeader("X-CoinAPI-Key", BuildConfig.API_KEY)
+                    .addHeader("accept-encoding", "gzip, deflate")
+                    .addHeader("content-type", "application/json; charset=utf-8")
+                    .addHeader("accept", "application/json")
+                    .build()
+            ) }
         .addInterceptor(
             interceptor
         ).build()
