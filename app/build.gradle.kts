@@ -7,6 +7,10 @@ android {
     namespace = "com.paixao.dev.mbtest"
     compileSdk = 34
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     defaultConfig {
         applicationId = "com.paixao.dev.mbtest"
         minSdk = 21
@@ -27,6 +31,14 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "BASE_URL", "\"https://rest.coinapi.io/\"")
+            buildConfigField("String", "API_KEY", "\"55D522F7-11A3-4243-937B-7644C973364D\"")
+        }
+
+        debug {
+            isMinifyEnabled = false
+            buildConfigField("String", "BASE_URL", "\"http://rest.coinapi.io/\"")
+            buildConfigField("String", "API_KEY", "\"55D522F7-11A3-4243-937B-7644C973364D\"")
         }
     }
     compileOptions {
@@ -61,6 +73,12 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.squareup.retrofit)
     implementation(libs.squareup.gson)
+    implementation(libs.logging.interceptor)
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(platform(libs.koin.bom))
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
