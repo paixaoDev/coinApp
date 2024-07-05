@@ -81,6 +81,7 @@ dependencies {
     implementation(libs.squareup.gson)
     implementation(libs.hilt)
     implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.navigation.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

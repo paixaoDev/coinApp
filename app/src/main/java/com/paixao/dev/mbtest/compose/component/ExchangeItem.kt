@@ -1,5 +1,6 @@
 package com.paixao.dev.mbtest.compose.component
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -19,8 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.compose.ui.unit.dp
 import com.paixao.dev.mbtest.R
+import com.paixao.dev.mbtest.ui.theme.MBTestTheme
 
 
 @Composable
@@ -31,12 +34,14 @@ fun ExchangeItem(
     value: String,
     time: String,
     fav: Boolean,
+    elevate: Boolean = false,
     click: () -> Unit = {}
 ) {
-    Card(
+    CardInfo(
         modifier = Modifier.clickable {
             click.invoke()
-        }
+        },
+        important = elevate
     ) {
         Column(
             modifier = Modifier.padding(10.dp, 10.dp, 10.dp, 5.dp),
@@ -79,15 +84,28 @@ fun ExchangeItem(
     }
 }
 
-@Preview(showBackground = false)
+
+@Preview(
+    name = "Light Mode"
+)
+@Preview(
+    name = "Dark Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Preview(
+    name = "Dynamic Color",
+    wallpaper = Wallpapers.GREEN_DOMINATED_EXAMPLE
+)
 @Composable
 private fun ExchangeItemPreview() {
-    ExchangeItem(
-        id = "NUB_00",
-        name = "Nubank",
-        image = painterResource(id = R.drawable.ic_launcher_background),
-        value = "R$ 10,00",
-        time = "Em 24 Horaas",
-        fav = true
-    )
+    MBTestTheme {
+        ExchangeItem(
+            id = "NUB_00",
+            name = "Nubank",
+            image = painterResource(id = R.drawable.ic_launcher_background),
+            value = "R$ 10,00",
+            time = "Em 24 Horaas",
+            fav = true
+        )
+    }
 }

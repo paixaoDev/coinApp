@@ -1,5 +1,6 @@
 package com.paixao.dev.mbtest.compose.component
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -7,6 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Wallpapers
+import com.paixao.dev.mbtest.ui.theme.MBTestTheme
 
 enum class TextSize {
     Small,
@@ -64,8 +67,22 @@ private fun TitleAndSubTitleCompose(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(
+    name = "Light Mode",
+    showBackground = true
+)
+@Preview(
+    name = "Dark Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Preview(
+    name = "Dynamic Color",
+    wallpaper = Wallpapers.GREEN_DOMINATED_EXAMPLE,
+    showBackground = true
+)
 @Composable
 private fun TitleAndSubTitlePreview() {
-    TitleAndSubTitle("Title", "substitle")
+    MBTestTheme {
+        TitleAndSubTitle("Title", "substitle")
+    }
 }
