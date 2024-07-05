@@ -8,7 +8,9 @@ import com.paixao.dev.mbtest.presentation.viewmodel.CoinViewModel
 
 @Composable
 fun HomeScreen(
-    viewModel: CoinViewModel = viewModel()
+    viewModel: CoinViewModel
 ) {
+    Button(onClick = { viewModel.getExchangeList() }) {
 
+    }
 }

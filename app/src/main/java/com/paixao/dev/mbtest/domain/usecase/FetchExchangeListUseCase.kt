@@ -5,13 +5,12 @@ import com.paixao.dev.mbtest.domain.repository.CoinRepository
 import com.paixao.dev.mbtest.domain.utils.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import javax.inject.Inject
 
 interface FetchExchangeListUseCase {
     operator fun invoke(): Flow<Result<ExchangeEntity, String>>
 }
 
-class FetchExchangeListUseCaseImpl @Inject constructor(
+class FetchExchangeListUseCaseImpl(
     val repository: CoinRepository
 ) : FetchExchangeListUseCase {
     override fun invoke(): Flow<Result<ExchangeEntity, String>> {
