@@ -5,9 +5,8 @@ import com.paixao.dev.mbtest.data.service.CoinApi
 import com.paixao.dev.mbtest.domain.entities.ExchangeEntity
 import com.paixao.dev.mbtest.domain.repository.CoinRepository
 import com.paixao.dev.mbtest.domain.utils.Result
-import javax.inject.Inject
 
-class CoinRepositoryImpl @Inject constructor(
+class CoinRepositoryImpl(
     val service: CoinApi
 ) : CoinRepository {
     override suspend fun fetchExchange(): Result<ExchangeEntity, String> {

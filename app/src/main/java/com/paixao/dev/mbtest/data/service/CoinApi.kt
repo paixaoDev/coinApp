@@ -7,9 +7,9 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface CoinApi {
-    @GET("/exchanges")
+    @GET("/v1/exchangerate/USD")
     suspend fun getExchanges(): Response<ExchangeResponse>
 
-    @GET("/exchanges")
+    @GET("/v1/exchangerate/")
     suspend fun getExchanges(@Query("filter_exchange_id") exchangeID: String): ResponseBody
 }
