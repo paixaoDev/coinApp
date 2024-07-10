@@ -6,7 +6,6 @@ import com.paixao.dev.mbtest.domain.utils.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
-import java.math.BigDecimal
 
 interface FetchExchangeListUseCase {
     operator fun invoke(): Flow<Result<List<ExchangeEntity>, String>>

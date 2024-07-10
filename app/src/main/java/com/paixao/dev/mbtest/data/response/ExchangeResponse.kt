@@ -2,7 +2,6 @@ package com.paixao.dev.mbtest.data.response
 
 import com.google.gson.annotations.SerializedName
 import com.paixao.dev.mbtest.domain.entities.ExchangeEntity
-import com.paixao.dev.mbtest.extensions.toCurrency
 import java.math.BigDecimal
 
 data class ExchangeResponse(
