@@ -1,6 +1,5 @@
 package com.paixao.dev.mbtest.presentation.viewmodel
 
-import android.net.NetworkInfo.DetailedState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paixao.dev.mbtest.domain.usecase.FetchExchangeDetailUseCase

@@ -7,7 +7,6 @@ import com.paixao.dev.mbtest.domain.entities.ExchangeDetailEntity
 import com.paixao.dev.mbtest.domain.entities.ExchangeIconEntity
 import com.paixao.dev.mbtest.domain.repository.CoinRepository
 import com.paixao.dev.mbtest.domain.utils.Result
-import java.math.BigDecimal
 
 class CoinRepositoryImpl(
     private val service: CoinApi
