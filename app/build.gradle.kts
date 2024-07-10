@@ -78,6 +78,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation (libs.androidx.room.runtime)
     implementation (libs.androidx.room.ktx)
+    implementation(libs.core.ktx)
+    implementation(libs.androidx.junit.ktx)
     kapt (libs.androidx.room.compiler)
     annotationProcessor (libs.androidx.room.compiler)
     implementation(platform(libs.koin.bom))
@@ -85,9 +87,15 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
     implementation(libs.coil.compose)
-
     implementation(libs.androidx.navigation.compose)
+
     testImplementation(libs.junit)
+    testImplementation(libs.koin.test)
+    testImplementation("io.mockk:mockk:1.13.11")
+    testImplementation("io.mockk:mockk:1.13.11")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0-RC")
+
+    androidTestImplementation ("androidx.arch.core:core-testing:2.1.0")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

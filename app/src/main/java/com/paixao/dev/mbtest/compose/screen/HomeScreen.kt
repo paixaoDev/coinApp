@@ -7,13 +7,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.paixao.dev.mbtest.compose.component.ExchangeListItem
+import com.paixao.dev.mbtest.compose.component.InformativeText
 import com.paixao.dev.mbtest.presentation.model.ExchangeItem
 import com.paixao.dev.mbtest.presentation.state.HomeScreenUiState
 import com.paixao.dev.mbtest.presentation.viewmodel.ExchangeViewModel
@@ -33,9 +33,9 @@ fun HomeScreen(
     ) {
         when (val ui = state) {
             is HomeScreenUiState.ExchangeList -> HomeScreenComposable(ui.exchanges, onExchangeClick)
-            is HomeScreenUiState.Error -> {}
-            is HomeScreenUiState.Failure -> {}
-            is HomeScreenUiState.Loading -> HomeLoading()
+            is HomeScreenUiState.Error -> InformativeText(ui.error)
+            is HomeScreenUiState.Failure -> InformativeText(ui.exception.localizedMessage?: "Erro")
+            is HomeScreenUiState.Loading ->InformativeText("Carregado...")
         }
     }
 }
@@ -66,7 +66,3 @@ fun HomeScreenComposable(
     }
 }
 
-@Composable
-fun HomeLoading() {
-    Text(text = "Loading")
-}

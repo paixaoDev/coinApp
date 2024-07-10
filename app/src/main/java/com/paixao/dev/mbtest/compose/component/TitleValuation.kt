@@ -94,7 +94,6 @@ private fun TitleValuationCompose(
             )
         }
     }
-
 }
 
 @Preview(
