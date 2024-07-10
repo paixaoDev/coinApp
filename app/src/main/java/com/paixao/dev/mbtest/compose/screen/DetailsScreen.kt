@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.compose.ui.unit.dp
 import com.paixao.dev.mbtest.compose.component.CardInfo
+import com.paixao.dev.mbtest.compose.component.InformativeText
 import com.paixao.dev.mbtest.compose.component.TextSize
 import com.paixao.dev.mbtest.compose.component.TitleAndSubTitle
 import com.paixao.dev.mbtest.presentation.model.ExchangeDetails
@@ -40,9 +41,9 @@ fun DetailsScreen(
     ) {
         when (val ui = state) {
             is DetailScreenUiState.ExchangeDetail -> DetailsScreenComposable(ui.exchangeDetails)
-            is DetailScreenUiState.Error -> {}
-            is DetailScreenUiState.Failure -> {}
-            is DetailScreenUiState.Loading -> {}
+            is DetailScreenUiState.Error -> InformativeText(ui.error)
+            is DetailScreenUiState.Failure ->InformativeText(ui.exception.localizedMessage?: "Erro")
+            is DetailScreenUiState.Loading -> InformativeText("Carregado...")
         }
     }
 }

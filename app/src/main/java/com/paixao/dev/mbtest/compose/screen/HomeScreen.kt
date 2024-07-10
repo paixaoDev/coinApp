@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.paixao.dev.mbtest.compose.component.ExchangeListItem
+import com.paixao.dev.mbtest.compose.component.InformativeText
 import com.paixao.dev.mbtest.presentation.model.ExchangeItem
 import com.paixao.dev.mbtest.presentation.state.HomeScreenUiState
 import com.paixao.dev.mbtest.presentation.viewmodel.ExchangeViewModel
@@ -33,9 +34,9 @@ fun HomeScreen(
     ) {
         when (val ui = state) {
             is HomeScreenUiState.ExchangeList -> HomeScreenComposable(ui.exchanges, onExchangeClick)
-            is HomeScreenUiState.Error -> {}
-            is HomeScreenUiState.Failure -> {}
-            is HomeScreenUiState.Loading -> HomeLoading()
+            is HomeScreenUiState.Error -> InformativeText(ui.error)
+            is HomeScreenUiState.Failure -> InformativeText(ui.exception.localizedMessage?: "Erro")
+            is HomeScreenUiState.Loading ->InformativeText("Carregado...")
         }
     }
 }
