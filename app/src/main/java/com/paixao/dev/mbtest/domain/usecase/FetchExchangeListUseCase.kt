@@ -15,6 +15,7 @@ interface FetchExchangeListUseCase {
 class FetchExchangeListUseCaseImpl(
     private val repository: CoinRepository
 ) : FetchExchangeListUseCase {
+
     override fun invoke(): Flow<Result<List<ExchangeEntity>, String>> {
         val exchange = flow {
             emit(repository.fetchExchange())
@@ -34,7 +35,7 @@ class FetchExchangeListUseCaseImpl(
                         }
                     }
 
-                    data.removeAll { it.volumeDay < BigDecimal.ONE }
+                    //data.removeAll { it.volumeDay < BigDecimal.ONE }
                     Result.Success(data)
                 }
 

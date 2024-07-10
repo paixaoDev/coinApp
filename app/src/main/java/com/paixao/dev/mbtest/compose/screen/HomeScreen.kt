@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -25,9 +26,7 @@ fun HomeScreen(
     viewModel: CoinViewModel = viewModel(),
     onExchangeClick: (exchange: String) -> Unit = {}
 ) {
-
     val uiState by viewModel.state.collectAsState(initial = CoinUiState.Loading())
-
     when (uiState) {
         is HomeScreenUiState.ExchangeList -> {
             HomeScreenComposable(
@@ -36,6 +35,7 @@ fun HomeScreen(
             )
         }
 
+        is CoinUiState.Loading -> HomeLoading()
         else -> {}
     }
 }
@@ -68,5 +68,15 @@ fun HomeScreenComposable(
                 }
             }
         }
+    }
+}
+
+@Composable
+fun HomeLoading() {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        Text(text = "Loading")
     }
 }

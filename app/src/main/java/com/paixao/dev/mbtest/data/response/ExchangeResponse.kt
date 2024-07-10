@@ -2,6 +2,7 @@ package com.paixao.dev.mbtest.data.response
 
 import com.google.gson.annotations.SerializedName
 import com.paixao.dev.mbtest.domain.entities.ExchangeEntity
+import com.paixao.dev.mbtest.extensions.toCurrency
 import java.math.BigDecimal
 
 data class ExchangeResponse(
@@ -37,6 +38,9 @@ internal fun ExchangeResponse.toEntity(): ExchangeEntity {
     return ExchangeEntity(
         id = id ?: "",
         name = name ?: "",
-        volumeDay = volumeDay
+        website = website ?: "",
+        volumeDay = volumeDay,
+        volumeHrs = volumeHrs,
+        volumeMonth = volumeMonth
     )
 }

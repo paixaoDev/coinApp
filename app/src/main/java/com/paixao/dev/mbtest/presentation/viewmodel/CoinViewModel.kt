@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.paixao.dev.mbtest.domain.usecase.FetchExchangeDetailUseCase
 import com.paixao.dev.mbtest.domain.usecase.FetchExchangeListUseCase
 import com.paixao.dev.mbtest.domain.utils.Result
+import com.paixao.dev.mbtest.presentation.model.toDetailModel
 import com.paixao.dev.mbtest.presentation.model.toModel
 import com.paixao.dev.mbtest.presentation.state.CoinUiState
 import com.paixao.dev.mbtest.presentation.state.DetailScreenUiState
@@ -24,6 +25,7 @@ class CoinViewModel(
     val state: StateFlow<CoinUiState> = _state.asStateFlow()
 
     fun getExchangeList() {
+        _state.value = CoinUiState.Loading()
         fetchExchangeListUseCase()
             .onEach { result ->
                 when (result) {
@@ -44,21 +46,10 @@ class CoinViewModel(
     }
 
     fun getExchange(exchangeID: String) {
+        _state.value = CoinUiState.Loading()
         fetchExchangeDetailUseCase(exchangeID)
             .onEach { result ->
-                when (result) {
-                    is Result.Success -> {
-                        _state.value = DetailScreenUiState.ExchangeDetail(result.data.toModel())
-                    }
-
-                    is Result.Error -> {
-                        _state.value = CoinUiState.Error(result.error)
-                    }
-
-                    is Result.Failure -> {
-                        _state.value = CoinUiState.Failure(result.throwable)
-                    }
-                }
+                _state.value = DetailScreenUiState.ExchangeDetail(result.toDetailModel())
             }.launchIn(viewModelScope)
     }
 }

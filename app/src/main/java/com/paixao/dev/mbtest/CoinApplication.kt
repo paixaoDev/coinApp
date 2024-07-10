@@ -3,6 +3,7 @@ package com.paixao.dev.mbtest
 import android.app.Application
 import com.paixao.dev.mbtest.di.networkModule
 import com.paixao.dev.mbtest.di.repositoryModule
+import com.paixao.dev.mbtest.di.roomModule
 import com.paixao.dev.mbtest.di.useCaseModule
 import com.paixao.dev.mbtest.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
@@ -16,7 +17,7 @@ class CoinApplication: Application(){
         startKoin {
             androidLogger()
             androidContext(this@CoinApplication)
-            modules(networkModule, repositoryModule, useCaseModule, viewModelModule)
+            modules(networkModule, repositoryModule, useCaseModule, viewModelModule, roomModule)
         }
     }
 }

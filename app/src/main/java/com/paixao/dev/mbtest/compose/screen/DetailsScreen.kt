@@ -20,14 +20,14 @@ import com.paixao.dev.mbtest.compose.component.CardInfo
 import com.paixao.dev.mbtest.compose.component.TextSize
 import com.paixao.dev.mbtest.compose.component.TitleAndSubTitle
 import com.paixao.dev.mbtest.presentation.model.ExchangeDetails
-import com.paixao.dev.mbtest.presentation.model.ExchangeSimpleDetails
 import com.paixao.dev.mbtest.presentation.state.DetailScreenUiState
 import com.paixao.dev.mbtest.presentation.viewmodel.CoinViewModel
 import com.paixao.dev.mbtest.ui.theme.MBTestTheme
 
 @Composable
 fun DetailsScreen(
-    viewModel: CoinViewModel = viewModel()
+    viewModel: CoinViewModel = viewModel(),
+    exchangeID: String,
 ) {
     val uiState by viewModel.state.collectAsState()
 
@@ -38,7 +38,9 @@ fun DetailsScreen(
             )
         }
 
-        else -> {}
+        else -> {
+            //viewModel.getExchange(exchangeID)
+        }
     }
 }
 
@@ -51,13 +53,13 @@ fun DetailsScreenComposable(detail: ExchangeDetails) {
         Column(
             modifier = Modifier.padding(10.dp)
         ) {
-            ExchangeSimpleDetail(detail.simpleDetails)
+            ExchangeSimpleDetail(detail)
         }
     }
 }
 
 @Composable
-fun ExchangeSimpleDetail(details: ExchangeSimpleDetails) {
+fun ExchangeSimpleDetail(details: ExchangeDetails) {
     CardInfo {
         Column(
             modifier = Modifier.padding(16.dp, 16.dp, 16.dp, 26.dp)
@@ -118,7 +120,7 @@ fun ExchangeSimpleDetail(details: ExchangeSimpleDetails) {
 fun ExchangeSimpleDetailPreview() {
     MBTestTheme {
         ExchangeSimpleDetail(
-            ExchangeSimpleDetails(
+            ExchangeDetails(
                 "", "", "", "", "", ""
             )
         )

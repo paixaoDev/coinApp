@@ -3,6 +3,7 @@ agp = "8.3.0"
 coilCompose = "2.6.0"
 koin-bom = "3.5.0"
 kotlin = "1.9.0"
+library = "7.1.2"
 coreKtx = "1.10.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
@@ -15,11 +16,14 @@ navigationCompose = "2.7.7"
 retrofit = "2.11.0"
 gson = "2.11.0"
 lyfecycleViewModel = "2.6.1"
-
+roomRuntime = "2.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -40,9 +44,10 @@ koin-android = { module = "io.insert-koin:koin-android" }
 logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "loggingInterceptor" }
 squareup-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 squareup-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "gson" }
-androidx-lifecycle-viewmodel = {group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lyfecycleViewModel"}
+androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lyfecycleViewModel" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+androidLibrary = { id = "com.android.library", version.ref = "library" }
 
