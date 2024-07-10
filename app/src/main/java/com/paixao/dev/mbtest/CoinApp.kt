@@ -8,40 +8,28 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.paixao.dev.mbtest.compose.screen.DetailsScreen
 import com.paixao.dev.mbtest.compose.screen.HomeScreen
-import com.paixao.dev.mbtest.presentation.viewmodel.CoinViewModel
 
 @Composable
-fun CoinApp(
-    viewModel: CoinViewModel
-) {
+fun CoinApp() {
     val navController = rememberNavController()
-    CoinNavHost(viewModel, navController)
+    CoinNavHost(navController)
 }
 
 @Composable
 fun CoinNavHost(
-    viewModel: CoinViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
     navController: NavHostController
 ) {
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
-            viewModel.getExchangeList()
             HomeScreen(
-                viewModel,
                 onExchangeClick = { exchange ->
-                    navController.navigate("details/${exchange}"){
-                        popUpTo("home") {
-                            inclusive = false
-                            saveState = true
-                        }
-                    }
+                    navController.navigate("details/${exchange}")
                 }
             )
         }
         composable("details/{exchange}") { entry ->
-            entry.arguments?.getString("exchange")?.let { exchangeID ->
-                viewModel.getExchange(exchangeID)
-                DetailsScreen(viewModel, exchangeID)
+            entry.arguments?.getString("exchange")?.let { exchange ->
+                DetailsScreen(exchangeID = exchange)
             } ?: LaunchedEffect(key1 = null) {
                 navController.navigate("home")
             }

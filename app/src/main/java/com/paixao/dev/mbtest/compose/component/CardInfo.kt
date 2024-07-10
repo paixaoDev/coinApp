@@ -12,7 +12,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.Wallpapers
@@ -32,11 +31,10 @@ fun CardInfo(
             containerColor = cardColor
         ),
         elevation = CardDefaults.elevatedCardElevation(
-            defaultElevation =  if (important) 10.dp else 0.dp
-        )
-    ) {
-        Column(content = content)
-    }
+            defaultElevation = if (important) 10.dp else 0.dp
+        ),
+        content = content
+    )
 }
 
 @Preview(
