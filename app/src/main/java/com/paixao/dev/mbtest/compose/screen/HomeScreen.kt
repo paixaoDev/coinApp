@@ -67,7 +67,3 @@ fun HomeScreenComposable(
     }
 }
 
-@Composable
-fun HomeLoading() {
-    Text(text = "Loading")
-}
