@@ -1,10 +1,11 @@
 package com.paixao.dev.mbtest.data.response
 
 import com.google.gson.annotations.SerializedName
-import com.paixao.dev.mbtest.domain.entities.ExchangeEntity
+import com.paixao.dev.mbtest.domain.entities.ExchangeDetailEntity
+import com.paixao.dev.mbtest.extensions.toCurrency
 import java.math.BigDecimal
 
-data class ExchangeResponse(
+data class ExchangeDetailResponse(
     @SerializedName("exchange_id")
     val id: String?,
     @SerializedName("website")
@@ -33,10 +34,14 @@ data class ExchangeResponse(
     val volumeMonth: BigDecimal
 )
 
-internal fun ExchangeResponse.toEntity(): ExchangeEntity {
-    return ExchangeEntity(
+
+internal fun ExchangeDetailResponse.toEntity(): ExchangeDetailEntity {
+    return ExchangeDetailEntity(
         id = id ?: "",
         name = name ?: "",
-        volumeDay = volumeDay
+        website = website ?: "",
+        volumeDay = volumeDay.toCurrency(),
+        volumeHrs = volumeHrs.toCurrency(),
+        volumeMonth = volumeMonth.toCurrency()
     )
 }

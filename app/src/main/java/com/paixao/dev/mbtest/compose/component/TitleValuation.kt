@@ -24,7 +24,7 @@ import com.paixao.dev.mbtest.ui.theme.MBTestTheme
 fun TitleValuation(
     value: String,
     shiny: Boolean = false,
-    textStyle: TextStyle = MaterialTheme.typography.headlineLarge,
+    textStyle: TextStyle = MaterialTheme.typography.headlineSmall,
     textColor: Color = MaterialTheme.colorScheme.inverseSurface,
     shinyTextColor: Color = MaterialTheme.colorScheme.primary,
     shinyColor: Color = MaterialTheme.colorScheme.onPrimary

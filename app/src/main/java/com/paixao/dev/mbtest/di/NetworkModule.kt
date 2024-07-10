@@ -1,5 +1,6 @@
 package com.paixao.dev.mbtest.di
 
+import com.google.gson.GsonBuilder
 import com.paixao.dev.mbtest.BuildConfig
 import com.paixao.dev.mbtest.data.service.CoinApi
 import okhttp3.OkHttpClient
@@ -23,18 +24,22 @@ fun provideHttpClient(): OkHttpClient {
                 chain.request()
                     .newBuilder()
                     .addHeader("X-CoinAPI-Key", BuildConfig.API_KEY)
-                    .addHeader("accept-encoding", "gzip, deflate")
-                    .addHeader("content-type", "application/json; charset=utf-8")
-                    .addHeader("accept", "application/json")
                     .build()
-            ) }
+            )
+        }
         .addInterceptor(
             interceptor
-        ).build()
+        )
+        .build()
 }
 
-fun provideConverterFactory(): GsonConverterFactory =
-    GsonConverterFactory.create()
+fun provideConverterFactory(): GsonConverterFactory {
+    val gson = GsonBuilder()
+        .setLenient()
+        .create()
+    return GsonConverterFactory.create(gson)
+}
+
 
 fun provideRetrofit(
     okHttpClient: OkHttpClient,
