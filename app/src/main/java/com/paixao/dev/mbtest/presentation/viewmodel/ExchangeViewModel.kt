@@ -2,13 +2,9 @@ package com.paixao.dev.mbtest.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.paixao.dev.mbtest.domain.usecase.FetchExchangeDetailUseCase
 import com.paixao.dev.mbtest.domain.usecase.FetchExchangeListUseCase
 import com.paixao.dev.mbtest.domain.utils.Result
-import com.paixao.dev.mbtest.presentation.model.toDetailModel
 import com.paixao.dev.mbtest.presentation.model.toModel
-import com.paixao.dev.mbtest.presentation.state.CoinUiState
-import com.paixao.dev.mbtest.presentation.state.DetailScreenUiState
 import com.paixao.dev.mbtest.presentation.state.HomeScreenUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

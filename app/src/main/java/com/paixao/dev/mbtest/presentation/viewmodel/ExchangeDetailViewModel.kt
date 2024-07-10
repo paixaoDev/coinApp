@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.paixao.dev.mbtest.domain.usecase.FetchExchangeDetailUseCase
 import com.paixao.dev.mbtest.presentation.model.toDetailModel
-import com.paixao.dev.mbtest.presentation.state.CoinUiState
 import com.paixao.dev.mbtest.presentation.state.DetailScreenUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
