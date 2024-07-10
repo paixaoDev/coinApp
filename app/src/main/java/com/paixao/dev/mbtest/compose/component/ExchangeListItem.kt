@@ -11,29 +11,25 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.paixao.dev.mbtest.R
 import com.paixao.dev.mbtest.ui.theme.MBTestTheme
 
 
 @Composable
-fun ExchangeItem(
+fun ExchangeListItem(
     id: String,
     name: String,
-    image: Painter? = null,
+    image: String? = "",
     value: String,
-    time: String,
-    fav: Boolean,
+    fav: Boolean = false,
     elevate: Boolean = false,
     click: () -> Unit = {}
 ) {
@@ -44,7 +40,7 @@ fun ExchangeItem(
         important = elevate
     ) {
         Column(
-            modifier = Modifier.padding(10.dp, 10.dp, 10.dp, 5.dp),
+            modifier = Modifier.padding(10.dp),
             verticalArrangement = Arrangement.Center
         ) {
             Row(
@@ -53,10 +49,16 @@ fun ExchangeItem(
                 verticalAlignment = Alignment.CenterVertically,
             )
             {
-                image?.let {
+                if (!image.isNullOrEmpty()) {
+                    AsyncImage(
+                        modifier = Modifier.size(40.dp),
+                        model = image,
+                        contentDescription = "$name image"
+                    )
+                } else {
                     Image(
-                        modifier = Modifier.size(70.dp),
-                        painter = image,
+                        modifier = Modifier.size(40.dp),
+                        painter = painterResource(id = R.drawable.ic_launcher_foreground),
                         contentDescription = "$name icon"
                     )
                 }
@@ -64,7 +66,12 @@ fun ExchangeItem(
                 Spacer(modifier = Modifier.size(10.dp))
 
                 Box(modifier = Modifier.weight(1f)) {
-                    TitleAndSubTitle(title = name, subtitle = id)
+                    TitleAndSubTitle(
+                        title = name,
+                        subtitle = "ID: $id",
+                        titleSize = TextSize.Medium,
+                        subtitleSize = TextSize.Small
+                    )
                 }
 
                 TitleValuation(
@@ -72,14 +79,6 @@ fun ExchangeItem(
                     shiny = fav
                 )
             }
-
-            Spacer(modifier = Modifier.size(5.dp))
-
-            Text(
-                text = time,
-                color = MaterialTheme.colorScheme.inverseSurface,
-                style = MaterialTheme.typography.labelSmall
-            )
         }
     }
 }
@@ -99,12 +98,11 @@ fun ExchangeItem(
 @Composable
 private fun ExchangeItemPreview() {
     MBTestTheme {
-        ExchangeItem(
+        ExchangeListItem(
             id = "NUB_00",
             name = "Nubank",
-            image = painterResource(id = R.drawable.ic_launcher_background),
+            image = "",
             value = "R$ 10,00",
-            time = "Em 24 Horaas",
             fav = true
         )
     }

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id ("kotlin-kapt")
 }
 
 android {
@@ -32,13 +33,13 @@ android {
                 "proguard-rules.pro"
             )
             buildConfigField("String", "BASE_URL", "\"https://rest.coinapi.io/\"")
-            buildConfigField("String", "API_KEY", "\"55D522F7-11A3-4243-937B-7644C973364D\"")
+            buildConfigField("String", "API_KEY", "\"DFBA56D3-16B7-48D2-9251-3BC37846B46F\"")
         }
 
         debug {
             isMinifyEnabled = false
             buildConfigField("String", "BASE_URL", "\"http://rest.coinapi.io/\"")
-            buildConfigField("String", "API_KEY", "\"55D522F7-11A3-4243-937B-7644C973364D\"")
+            buildConfigField("String", "API_KEY", "\"DFBA56D3-16B7-48D2-9251-3BC37846B46F\"")
         }
     }
     compileOptions {
@@ -75,9 +76,14 @@ dependencies {
     implementation(libs.squareup.gson)
     implementation(libs.logging.interceptor)
     implementation(libs.androidx.lifecycle.viewmodel)
+    implementation (libs.androidx.room.runtime)
+    implementation (libs.androidx.room.ktx)
+    kapt (libs.androidx.room.compiler)
+    annotationProcessor (libs.androidx.room.compiler)
     implementation(platform(libs.koin.bom))
     implementation(libs.koin.core)
     implementation(libs.koin.android)
+    implementation(libs.coil.compose)
 
     implementation(libs.androidx.navigation.compose)
     testImplementation(libs.junit)

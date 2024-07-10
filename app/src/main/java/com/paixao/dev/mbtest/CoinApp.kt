@@ -20,25 +20,28 @@ fun CoinApp(
 
 @Composable
 fun CoinNavHost(
-    viewModel: CoinViewModel,
+    viewModel: CoinViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
     navController: NavHostController
 ) {
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
+            viewModel.getExchangeList()
             HomeScreen(
                 viewModel,
                 onExchangeClick = { exchange ->
-                    viewModel.getExchangeList()
-                    navController.navigate("details/${exchange}")
+                    navController.navigate("details/${exchange}"){
+                        popUpTo("home") {
+                            inclusive = false
+                            saveState = true
+                        }
+                    }
                 }
             )
         }
         composable("details/{exchange}") { entry ->
-            entry.arguments?.getString("exchange")?.let { exchange ->
-                DetailsScreen(
-                    viewModel,
-                    exchangeID = exchange
-                )
+            entry.arguments?.getString("exchange")?.let { exchangeID ->
+                viewModel.getExchange(exchangeID)
+                DetailsScreen(viewModel, exchangeID)
             } ?: LaunchedEffect(key1 = null) {
                 navController.navigate("home")
             }

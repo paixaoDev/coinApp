@@ -8,8 +8,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.Wallpapers
@@ -18,14 +19,33 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.paixao.dev.mbtest.compose.component.CardInfo
 import com.paixao.dev.mbtest.compose.component.TextSize
 import com.paixao.dev.mbtest.compose.component.TitleAndSubTitle
+import com.paixao.dev.mbtest.presentation.model.ExchangeDetails
+import com.paixao.dev.mbtest.presentation.state.DetailScreenUiState
 import com.paixao.dev.mbtest.presentation.viewmodel.CoinViewModel
 import com.paixao.dev.mbtest.ui.theme.MBTestTheme
 
 @Composable
 fun DetailsScreen(
-    viewModel: CoinViewModel,
-    exchangeID: String = ""
+    viewModel: CoinViewModel = viewModel(),
+    exchangeID: String,
 ) {
+    val uiState by viewModel.state.collectAsState()
+
+    when (uiState) {
+        is DetailScreenUiState.ExchangeDetail -> {
+            DetailsScreenComposable(
+                (uiState as DetailScreenUiState.ExchangeDetail).exchangeDetails
+            )
+        }
+
+        else -> {
+            //viewModel.getExchange(exchangeID)
+        }
+    }
+}
+
+@Composable
+fun DetailsScreenComposable(detail: ExchangeDetails) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -33,20 +53,20 @@ fun DetailsScreen(
         Column(
             modifier = Modifier.padding(10.dp)
         ) {
-            ExchangeSimpleDetail()
+            ExchangeSimpleDetail(detail)
         }
     }
 }
 
 @Composable
-fun ExchangeSimpleDetail() {
+fun ExchangeSimpleDetail(details: ExchangeDetails) {
     CardInfo {
         Column(
             modifier = Modifier.padding(16.dp, 16.dp, 16.dp, 26.dp)
         ) {
             TitleAndSubTitle(
                 title = "Exchange Name:",
-                subtitle = "NUBANK",
+                subtitle = details.name,
                 titleSize = TextSize.Small
             )
 
@@ -54,7 +74,7 @@ fun ExchangeSimpleDetail() {
 
             TitleAndSubTitle(
                 title = "Exchange ID:",
-                subtitle = "NUB_00",
+                subtitle = details.id,
                 titleSize = TextSize.Small
             )
 
@@ -62,7 +82,7 @@ fun ExchangeSimpleDetail() {
 
             TitleAndSubTitle(
                 title = "Volume ultima hora",
-                subtitle = "$ 100.000,00",
+                subtitle = details.volumeHrs,
                 titleSize = TextSize.Small
             )
 
@@ -70,7 +90,7 @@ fun ExchangeSimpleDetail() {
 
             TitleAndSubTitle(
                 title = "Volume ultimo dia",
-                subtitle = "$ 100.000,00",
+                subtitle = details.volumeDay,
                 titleSize = TextSize.Small
             )
 
@@ -78,7 +98,7 @@ fun ExchangeSimpleDetail() {
 
             TitleAndSubTitle(
                 title = "Volume ultimo mês",
-                subtitle = "$ 100.000,00",
+                subtitle = details.volumeMonth,
                 titleSize = TextSize.Small
             )
         }
@@ -99,6 +119,10 @@ fun ExchangeSimpleDetail() {
 @Composable
 fun ExchangeSimpleDetailPreview() {
     MBTestTheme {
-        ExchangeSimpleDetail()
+        ExchangeSimpleDetail(
+            ExchangeDetails(
+                "", "", "", "", "", ""
+            )
+        )
     }
 }
