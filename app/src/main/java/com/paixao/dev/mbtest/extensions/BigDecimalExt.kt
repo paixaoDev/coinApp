@@ -26,11 +26,11 @@ fun BigDecimal.toCurrencyMinor(): String {
 }
 
 fun BigDecimal.currencyInterval(): String {
-    return if (this > BigDecimal.valueOf(1000000000)) {
+    return if (this >= BigDecimal.valueOf(1000000000)) {
         "B"
-    } else if (this > BigDecimal.valueOf(1000000)) {
+    } else if (this >= BigDecimal.valueOf(1000000)) {
         "M"
-    } else if (this > BigDecimal.valueOf(1000)) {
+    } else if (this >= BigDecimal.valueOf(1000)) {
         "K"
     } else {
         ""
