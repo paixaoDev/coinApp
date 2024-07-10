@@ -13,30 +13,30 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.paixao.dev.mbtest.compose.component.ExchangeListItem
 import com.paixao.dev.mbtest.presentation.model.ExchangeItem
-import com.paixao.dev.mbtest.presentation.state.CoinUiState
 import com.paixao.dev.mbtest.presentation.state.HomeScreenUiState
-import com.paixao.dev.mbtest.presentation.viewmodel.CoinViewModel
+import com.paixao.dev.mbtest.presentation.viewmodel.ExchangeViewModel
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
 fun HomeScreen(
-    viewModel: CoinViewModel = viewModel(),
+    viewModel: ExchangeViewModel = koinViewModel(),
     onExchangeClick: (exchange: String) -> Unit = {}
 ) {
-    val uiState by viewModel.state.collectAsState(initial = CoinUiState.Loading())
-    when (uiState) {
-        is HomeScreenUiState.ExchangeList -> {
-            HomeScreenComposable(
-                (uiState as HomeScreenUiState.ExchangeList).exchanges,
-                onExchangeClick
-            )
-        }
+    val state by viewModel.state.collectAsState(initial = HomeScreenUiState.Loading())
 
-        is CoinUiState.Loading -> HomeLoading()
-        else -> {}
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        when (val ui = state) {
+            is HomeScreenUiState.ExchangeList -> HomeScreenComposable(ui.exchanges, onExchangeClick)
+            is HomeScreenUiState.Error -> {}
+            is HomeScreenUiState.Failure -> {}
+            is HomeScreenUiState.Loading -> HomeLoading()
+        }
     }
 }
 
@@ -45,27 +45,22 @@ fun HomeScreenComposable(
     exchanges: List<ExchangeItem>,
     onExchangeClick: (exchange: String) -> Unit = {}
 ) {
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
+    LazyColumn(
+        modifier = Modifier.padding(10.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        LazyColumn(
-            modifier = Modifier.padding(10.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
+        items(
+            exchanges
         ) {
-            items(
-                exchanges
+            ExchangeListItem(
+                id = it.id,
+                name = it.name,
+                image = it.image,
+                value = it.value,
+                elevate = it.name == "Mercado Bitcoin",
+                fav = it.name == "Mercado Bitcoin"
             ) {
-                ExchangeListItem(
-                    id = it.id,
-                    name = it.name,
-                    image = it.image,
-                    value = it.value,
-                    elevate = it.name == "Mercado Bitcoin",
-                    fav = it.name == "Mercado Bitcoin"
-                ) {
-                    onExchangeClick.invoke(it.id)
-                }
+                onExchangeClick.invoke(it.id)
             }
         }
     }
@@ -73,10 +68,5 @@ fun HomeScreenComposable(
 
 @Composable
 fun HomeLoading() {
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
-    ) {
-        Text(text = "Loading")
-    }
+    Text(text = "Loading")
 }

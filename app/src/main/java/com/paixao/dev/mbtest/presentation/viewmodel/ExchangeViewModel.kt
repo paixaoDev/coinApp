@@ -16,16 +16,19 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-class CoinViewModel(
-    private val fetchExchangeListUseCase: FetchExchangeListUseCase,
-    private val fetchExchangeDetailUseCase: FetchExchangeDetailUseCase,
+class ExchangeViewModel(
+    private val fetchExchangeListUseCase: FetchExchangeListUseCase
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<CoinUiState>(CoinUiState.Loading())
-    val state: StateFlow<CoinUiState> = _state.asStateFlow()
+    private val _state = MutableStateFlow<HomeScreenUiState>(HomeScreenUiState.Loading())
+    val state: StateFlow<HomeScreenUiState> = _state.asStateFlow()
+
+    init {
+        getExchangeList()
+    }
 
     fun getExchangeList() {
-        _state.value = CoinUiState.Loading()
+        _state.value = HomeScreenUiState.Loading()
         fetchExchangeListUseCase()
             .onEach { result ->
                 when (result) {
@@ -35,21 +38,13 @@ class CoinViewModel(
                     }
 
                     is Result.Error -> {
-                        _state.value = CoinUiState.Error(result.error)
+                        _state.value = HomeScreenUiState.Error(result.error)
                     }
 
                     is Result.Failure -> {
-                        _state.value = CoinUiState.Failure(result.throwable)
+                        _state.value = HomeScreenUiState.Failure(result.throwable)
                     }
                 }
-            }.launchIn(viewModelScope)
-    }
-
-    fun getExchange(exchangeID: String) {
-        _state.value = CoinUiState.Loading()
-        fetchExchangeDetailUseCase(exchangeID)
-            .onEach { result ->
-                _state.value = DetailScreenUiState.ExchangeDetail(result.toDetailModel())
             }.launchIn(viewModelScope)
     }
 }

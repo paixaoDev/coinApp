@@ -32,11 +32,10 @@ fun CardInfo(
             containerColor = cardColor
         ),
         elevation = CardDefaults.elevatedCardElevation(
-            defaultElevation =  if (important) 10.dp else 0.dp
-        )
-    ) {
-        Column(content = content)
-    }
+            defaultElevation = if (important) 10.dp else 0.dp
+        ),
+        content = content
+    )
 }
 
 @Preview(
